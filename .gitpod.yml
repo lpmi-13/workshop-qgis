@@ -1,0 +1,17 @@
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - name: build the qgis container and run it via VNC
+    init: docker build -t desktop-qgis .
+    # we open the preview in the tasks instead of the "ports" section to force https
+    command: |
+      docker run --detach --rm -ti --env=DISPLAY=unix${DISPLAY} --volume=/tmp/.X11-unix:/tmp/.X11-unix --volume=${HOME}:${HOME} desktop-qgis
+      gp preview https://localhost:6080
+    
+# we explicitly ignore the ports to avoid showing the potentially confusing popup about the available services
+ports:
+  - port: 5900
+    onOpen: ignore
+  - port: 6080
+    onOpen: ignore 

@@ -8,10 +8,11 @@ tasks:
     command: |
       docker run --detach --rm -ti --env=DISPLAY=unix${DISPLAY} --volume=/tmp/.X11-unix:/tmp/.X11-unix --volume=${HOME}:${HOME} desktop-qgis
       gp preview https://localhost:6080
-    
+      exit
+
 # we explicitly ignore the ports to avoid showing the potentially confusing popup about the available services
 ports:
   - port: 5900
     onOpen: ignore
   - port: 6080
-    onOpen: ignore 
+    onOpen: ignore
